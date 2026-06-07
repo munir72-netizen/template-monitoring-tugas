@@ -1648,101 +1648,6 @@
     .role-visible-flex.role-visible {
       display: flex !important
     }
-
-    /* ── RESPONSIVE UPGRADES ── */
-    /* Sembunyikan tombol hamburger di PC */
-    #hamburger-btn {
-      display: none;
-    }
-
-    #sidebar-overlay {
-      display: none;
-    }
-
-    @media (max-width: 900px) {
-
-      /* Tampilkan tombol menu hamburger */
-      #hamburger-btn {
-        display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Sidebar menjadi melayang (Drawer) di sebelah kiri */
-      #sidebar {
-        position: fixed;
-        top: 0;
-        left: -260px;
-        height: 100vh;
-        z-index: 1000;
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-        transition: left 0.3s ease;
-      }
-
-      #sidebar.open {
-        left: 0;
-      }
-
-      /* Background gelap saat sidebar terbuka di mobile */
-      #sidebar-overlay.open {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(5, 10, 20, 0.7);
-        backdrop-filter: blur(2px);
-        z-index: 999;
-      }
-
-      /* Penyesuaian Grid & Layout */
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .dash-grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* Untuk kpi-card Executive Dashboard yang ada 4 */
-      #sec-dashboard-manajer>div:nth-child(2) {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-    }
-
-    @media (max-width: 600px) {
-
-      /* Jadikan semua grid 1 kolom di HP */
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      #sec-dashboard-manajer>div:nth-child(2) {
-        grid-template-columns: 1fr !important;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .col-span-2 {
-        grid-column: span 1;
-      }
-
-      /* Sembunyikan teks Breadcrumb agar topbar tidak penuh */
-      #breadcrumb-bar {
-        font-size: 10px;
-      }
-
-      /* Sesuaikan tombol filter di toolbar */
-      .filter-sel {
-        flex: 1;
-        min-width: 100px;
-      }
-
-      .search-box {
-        max-width: 100%;
-        width: 100%;
-      }
-    }
   </style>
 </head>
 
@@ -1812,8 +1717,6 @@
 
   <!-- ══════════════════════════════════════════ APP -->
   <div id="page-app" class="page">
-    <!-- Tambahkan overlay ini tepat DI ATAS <aside id="sidebar"> -->
-    <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <!-- SIDEBAR -->
     <aside id="sidebar">
@@ -1887,1100 +1790,1081 @@
       <!-- TOPBAR -->
       <header id="topbar">
         <div class="topbar-left">
-          <!-- Tombol Hamburger (Baru) -->
-          <button id="hamburger-btn" onclick="toggleSidebar()"
-            style="background:none; border:none; color:var(--white); cursor:pointer; margin-right:12px; padding:4px;">
-            <i data-lucide="menu" style="width:20px; height:20px;"></i>
-          </button>
-
           <div class="ping" style="display:inline-block"></div>
           <span style="font-size:12px;color:var(--text2)" id="tb-status">Sistem Aktif</span>
           <span style="color:var(--border2);font-size:14px">|</span>
           <span class="mono" style="font-size:11px;color:var(--muted)" id="tb-date"></span>
         </div>
-        <div class="ping" style="display:inline-block"></div>
-        <span style="font-size:12px;color:var(--text2)" id="tb-status">Sistem Aktif</span>
-        <span style="color:var(--border2);font-size:14px">|</span>
-        <span class="mono" style="font-size:11px;color:var(--muted)" id="tb-date"></span>
-    </div>
-    <div class="topbar-right">
-      <button class="btn btn-ghost btn-sm" style="position:relative" title="Notifikasi">
-        <i data-lucide="bell" style="width:15px;height:15px"></i>
-        <span
-          style="position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--danger)"></span>
-      </button>
-      <span id="tb-role-badge" class="role-badge role-admin" style="font-size:9px">Admin</span>
-      <div class="avatar sm" id="tb-av">AD</div>
-      <span style="font-size:12px;font-weight:600;color:var(--white)" id="tb-name">Admin</span>
-    </div>
-    </header>
-
-    <!-- BREADCRUMB -->
-    <div id="breadcrumb-bar">
-      <div class="bc-item">
-        <i data-lucide="home" class="bc-icon"></i>
-        <span>SIMARS</span>
-      </div>
-      <span class="bc-sep">›</span>
-      <div class="bc-item" id="bc-parent" style="display:none">
-        <span id="bc-parent-text"></span>
-      </div>
-      <span class="bc-sep" id="bc-sep2" style="display:none">›</span>
-      <div class="bc-item active">
-        <i data-lucide="circle" class="bc-icon" id="bc-icon"></i>
-        <span id="bc-current">Dashboard</span>
-      </div>
-    </div>
-
-    <!-- CONTENT -->
-    <div id="content-area">
-
-      <!-- ══ DASHBOARD ══ -->
-      <div class="section active" id="sec-dashboard">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Dashboard Overview</h2>
-            <p>Monitoring real-time status permintaan perbaikan</p>
-          </div>
-          <button onclick="showSec('permintaan');openModal('modal-add')" class="btn btn-cyan btn-sm">
-            <i data-lucide="plus"></i> Permintaan Baru
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-sm" style="position:relative" title="Notifikasi">
+            <i data-lucide="bell" style="width:15px;height:15px"></i>
+            <span
+              style="position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--danger)"></span>
           </button>
+          <span id="tb-role-badge" class="role-badge role-admin" style="font-size:9px">Admin</span>
+          <div class="avatar sm" id="tb-av">AD</div>
+          <span style="font-size:12px;font-weight:600;color:var(--white)" id="tb-name">Admin</span>
         </div>
+      </header>
 
-        <!-- STAT CARDS -->
-        <div class="stats-grid">
-          <div class="stat-card c-blue">
-            <div class="stat-label">Total Bulan Ini</div>
-            <div class="stat-val">24</div>
-            <div class="stat-sub">+3 dari bulan lalu</div>
-            <div class="stat-icon"><i data-lucide="file-text"></i></div>
-          </div>
-          <div class="stat-card c-cyan">
-            <div class="stat-label">Sedang Proses</div>
-            <div class="stat-val" style="color:var(--cyan)">8</div>
-            <div class="stat-sub">Aktif dikerjakan</div>
-            <div class="stat-icon"><i data-lucide="settings-2"></i></div>
-          </div>
-          <div class="stat-card c-green">
-            <div class="stat-label">Selesai</div>
-            <div class="stat-val" style="color:#34d399">14</div>
-            <div class="stat-sub">Tingkat selesai 58%</div>
-            <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
-          </div>
-          <div class="stat-card c-warn">
-            <div class="stat-label">Menunggu</div>
-            <div class="stat-val" style="color:#fbbf24">2</div>
-            <div class="stat-sub">Perlu penugasan teknisi</div>
-            <div class="stat-icon"><i data-lucide="clock"></i></div>
-          </div>
+      <!-- BREADCRUMB -->
+      <div id="breadcrumb-bar">
+        <div class="bc-item">
+          <i data-lucide="home" class="bc-icon"></i>
+          <span>SIMARS</span>
         </div>
+        <span class="bc-sep">›</span>
+        <div class="bc-item" id="bc-parent" style="display:none">
+          <span id="bc-parent-text"></span>
+        </div>
+        <span class="bc-sep" id="bc-sep2" style="display:none">›</span>
+        <div class="bc-item active">
+          <i data-lucide="circle" class="bc-icon" id="bc-icon"></i>
+          <span id="bc-current">Dashboard</span>
+        </div>
+      </div>
 
-        <div class="dash-grid">
-          <!-- LEFT COL -->
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <!-- RECENT TABLE -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3><i data-lucide="clock-3"
-                    style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Permintaan
-                  Terbaru</h3>
-                <button onclick="showSec('permintaan')"
-                  style="font-size:11px;color:var(--cyan);background:none;border:none;cursor:pointer;font-weight:700">Lihat
-                  semua →</button>
+      <!-- CONTENT -->
+      <div id="content-area">
+
+        <!-- ══ DASHBOARD ══ -->
+        <div class="section active" id="sec-dashboard">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Dashboard Overview</h2>
+              <p>Monitoring real-time status permintaan perbaikan</p>
+            </div>
+            <button onclick="showSec('permintaan');openModal('modal-add')" class="btn btn-cyan btn-sm">
+              <i data-lucide="plus"></i> Permintaan Baru
+            </button>
+          </div>
+
+          <!-- STAT CARDS -->
+          <div class="stats-grid">
+            <div class="stat-card c-blue">
+              <div class="stat-label">Total Bulan Ini</div>
+              <div class="stat-val">24</div>
+              <div class="stat-sub">+3 dari bulan lalu</div>
+              <div class="stat-icon"><i data-lucide="file-text"></i></div>
+            </div>
+            <div class="stat-card c-cyan">
+              <div class="stat-label">Sedang Proses</div>
+              <div class="stat-val" style="color:var(--cyan)">8</div>
+              <div class="stat-sub">Aktif dikerjakan</div>
+              <div class="stat-icon"><i data-lucide="settings-2"></i></div>
+            </div>
+            <div class="stat-card c-green">
+              <div class="stat-label">Selesai</div>
+              <div class="stat-val" style="color:#34d399">14</div>
+              <div class="stat-sub">Tingkat selesai 58%</div>
+              <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
+            </div>
+            <div class="stat-card c-warn">
+              <div class="stat-label">Menunggu</div>
+              <div class="stat-val" style="color:#fbbf24">2</div>
+              <div class="stat-sub">Perlu penugasan teknisi</div>
+              <div class="stat-icon"><i data-lucide="clock"></i></div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <!-- LEFT COL -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <!-- RECENT TABLE -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3><i data-lucide="clock-3"
+                      style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Permintaan
+                    Terbaru</h3>
+                  <button onclick="showSec('permintaan')"
+                    style="font-size:11px;color:var(--cyan);background:none;border:none;cursor:pointer;font-weight:700">Lihat
+                    semua →</button>
+                </div>
+                <div style="overflow-x:auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tiket</th>
+                        <th>Deskripsi</th>
+                        <th>Lokasi</th>
+                        <th>Teknisi</th>
+                        <th>Prioritas</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2024</span></td>
+                        <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">AC Ruang
+                          Rapat Lt.3 tidak dingin</td>
+                        <td style="font-size:11px;color:var(--text2)">Lt.3 – R.Rapat</td>
+                        <td style="font-size:11.5px">Budi Wijaya</td>
+                        <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
+                        <td><span class="badge b-proses"><span class="badge-dot"></span>Proses</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2023</span></td>
+                        <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lampu
+                          koridor padam</td>
+                        <td style="font-size:11px;color:var(--text2)">Lt.1 – Koridor A</td>
+                        <td style="font-size:11.5px">Budi Wijaya</td>
+                        <td><span class="badge b-rendah"><span class="badge-dot"></span>Rendah</span></td>
+                        <td><span class="badge b-selesai"><span class="badge-dot"></span>Selesai</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2022</span></td>
+                        <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Kebocoran
+                          pipa WC lantai 2</td>
+                        <td style="font-size:11px;color:var(--text2)">Lt.2 – WC Pria</td>
+                        <td style="font-size:11.5px">Andi Susilo</td>
+                        <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
+                        <td><span class="badge b-proses"><span class="badge-dot"></span>Proses</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2021</span></td>
+                        <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Pintu
+                          geser lift error</td>
+                        <td style="font-size:11px;color:var(--text2)">Lobby – Lift B</td>
+                        <td style="font-size:11.5px;color:var(--muted)">—</td>
+                        <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
+                        <td><span class="badge b-menunggu"><span class="badge-dot"></span>Menunggu</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
+
+              <!-- ACTIVITY FEED -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3><i data-lucide="activity"
+                      style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Log
+                    Aktivitas Hari Ini</h3>
+                </div>
+                <div class="card-body" style="padding:8px 16px">
+                  <div class="activity-item">
+                    <div class="act-dot" style="background:var(--success)"></div>
+                    <div style="flex:1">
+                      <div class="act-text"><strong style="color:var(--white)">Budi Wijaya</strong> menyelesaikan tiket
+                        <span class="mono" style="color:var(--cyan);font-size:11px">#MTC-2023</span></div>
+                      <div class="act-time">09:42</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="act-dot" style="background:var(--blue3)"></div>
+                    <div style="flex:1">
+                      <div class="act-text"><strong style="color:var(--white)">Andi Susilo</strong> memperbarui status
+                        <span class="mono" style="color:var(--cyan);font-size:11px">#MTC-2022</span> → Proses</div>
+                      <div class="act-time">08:55</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="act-dot" style="background:var(--warning)"></div>
+                    <div style="flex:1">
+                      <div class="act-text">Permintaan baru masuk dari <strong style="color:var(--white)">Rudi
+                          Hartono</strong> — AC tidak dingin Lt.3</div>
+                      <div class="act-time">08:15</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="act-dot" style="background:var(--muted)"></div>
+                    <div style="flex:1">
+                      <div class="act-text"><strong style="color:var(--white)">Admin</strong> menugaskan <span
+                          class="mono" style="color:var(--cyan);font-size:11px">#MTC-2024</span> ke Budi Wijaya</div>
+                      <div class="act-time">07:30</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COL -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <!-- KATEGORI CHART -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>Distribusi Kategori</h3>
+                </div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                      <span>Mekanikal (AC, Lift)</span><span class="mono" style="color:var(--cyan)">9</span></div>
+                    <div class="bar-bg">
+                      <div class="bar-fill"
+                        style="width:75%;background:linear-gradient(90deg,var(--blue),var(--blue3))"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                      <span>Elektrikal (Lampu, Panel)</span><span class="mono" style="color:#60a5fa">6</span></div>
+                    <div class="bar-bg">
+                      <div class="bar-fill" style="width:50%;background:linear-gradient(90deg,#2563eb,#60a5fa)"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>Sipil
+                        (Dinding, Pipa)</span><span class="mono" style="color:#34d399">5</span></div>
+                    <div class="bar-bg">
+                      <div class="bar-fill" style="width:42%;background:linear-gradient(90deg,#059669,#34d399)"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>IT /
+                        AV</span><span class="mono" style="color:#c084fc">4</span></div>
+                    <div class="bar-bg">
+                      <div class="bar-fill" style="width:33%;background:linear-gradient(90deg,#7c3aed,#c084fc)"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TEKNISI -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>Status Teknisi</h3>
+                </div>
+                <div style="padding:8px 0">
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#2563eb,#60a5fa)">BW</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Budi Wijaya</div>
+                      <div style="font-size:10.5px;color:var(--muted)">3 tugas aktif</div>
+                    </div>
+                    <span class="badge b-proses" style="font-size:10px">Sibuk</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">AS</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Andi Susilo</div>
+                      <div style="font-size:10.5px;color:var(--muted)">2 tugas aktif</div>
+                    </div>
+                    <span class="badge b-proses" style="font-size:10px">Sibuk</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#7c3aed,#c084fc)">RN</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Rini Nuraeni</div>
+                      <div style="font-size:10.5px;color:var(--muted)">1 tugas aktif</div>
+                    </div>
+                    <span class="badge b-sedang" style="font-size:10px">Tersedia</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#374151,#6b7280)">DP</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Doni Prasetyo</div>
+                      <div style="font-size:10.5px;color:var(--muted)">0 tugas aktif</div>
+                    </div>
+                    <span class="badge b-selesai" style="font-size:10px">Bebas</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLA -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>SLA Bulan Ini</h3>
+                </div>
+                <div class="card-body" style="text-align:center;padding:20px">
+                  <div
+                    style="font-size:42px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--cyan);line-height:1">
+                    92%</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px">Selesai tepat waktu</div>
+                  <div style="margin-top:12px;height:6px;background:var(--surface2);border-radius:4px;overflow:hidden">
+                    <div
+                      style="width:92%;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:4px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ PERMINTAAN (CRUD) ══ -->
+        <div class="section" id="sec-permintaan">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Permintaan Perbaikan</h2>
+              <p>Kelola semua tiket permintaan maintenance</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="file-spreadsheet"></i>
+                Export Excel</button>
+              <button onclick="openModal('modal-add')" class="btn btn-cyan btn-sm admin-only"
+                id="btn-tambah-permintaan"><i data-lucide="plus"></i> Tambah</button>
+            </div>
+          </div>
+
+          <!-- TOOLBAR -->
+          <div class="toolbar">
+            <div class="search-box">
+              <i data-lucide="search"></i>
+              <input type="text" id="srch" placeholder="Cari tiket / kerusakan..." oninput="filterTable()">
+            </div>
+            <select class="filter-sel" id="f-sts" onchange="filterTable()">
+              <option value="">Semua Status</option>
+              <option>Menunggu</option>
+              <option>Proses</option>
+              <option>Selesai</option>
+              <option>Ditolak</option>
+            </select>
+            <select class="filter-sel" id="f-prio" onchange="filterTable()">
+              <option value="">Semua Prioritas</option>
+              <option>Tinggi</option>
+              <option>Sedang</option>
+              <option>Rendah</option>
+            </select>
+            <select class="filter-sel" id="f-kat" onchange="filterTable()">
+              <option value="">Semua Kategori</option>
+              <option>Mekanikal</option>
+              <option>Elektrikal</option>
+              <option>Sipil</option>
+              <option>IT / AV</option>
+            </select>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+              <div class="view-toggle">
+                <div class="view-btn active" id="vb-list" onclick="setView('list')" title="List View"><i
+                    data-lucide="list"></i></div>
+                <div class="view-btn" id="vb-card" onclick="setView('card')" title="Card View"><i
+                    data-lucide="layout-grid"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIST VIEW -->
+          <div id="list-view">
+            <div class="card">
               <div style="overflow-x:auto">
-                <table>
+                <table id="tbl-main">
                   <thead>
                     <tr>
                       <th>Tiket</th>
-                      <th>Deskripsi</th>
+                      <th>Tgl</th>
+                      <th>Pemohon</th>
+                      <th>Kategori</th>
+                      <th>Deskripsi Kerusakan</th>
                       <th>Lokasi</th>
+                      <th>Prio</th>
                       <th>Teknisi</th>
-                      <th>Prioritas</th>
                       <th>Status</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2024</span></td>
-                      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">AC Ruang
-                        Rapat Lt.3 tidak dingin</td>
-                      <td style="font-size:11px;color:var(--text2)">Lt.3 – R.Rapat</td>
-                      <td style="font-size:11.5px">Budi Wijaya</td>
-                      <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
-                      <td><span class="badge b-proses"><span class="badge-dot"></span>Proses</span></td>
-                    </tr>
-                    <tr>
-                      <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2023</span></td>
-                      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lampu
-                        koridor padam</td>
-                      <td style="font-size:11px;color:var(--text2)">Lt.1 – Koridor A</td>
-                      <td style="font-size:11.5px">Budi Wijaya</td>
-                      <td><span class="badge b-rendah"><span class="badge-dot"></span>Rendah</span></td>
-                      <td><span class="badge b-selesai"><span class="badge-dot"></span>Selesai</span></td>
-                    </tr>
-                    <tr>
-                      <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2022</span></td>
-                      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Kebocoran
-                        pipa WC lantai 2</td>
-                      <td style="font-size:11px;color:var(--text2)">Lt.2 – WC Pria</td>
-                      <td style="font-size:11.5px">Andi Susilo</td>
-                      <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
-                      <td><span class="badge b-proses"><span class="badge-dot"></span>Proses</span></td>
-                    </tr>
-                    <tr>
-                      <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2021</span></td>
-                      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Pintu
-                        geser lift error</td>
-                      <td style="font-size:11px;color:var(--text2)">Lobby – Lift B</td>
-                      <td style="font-size:11.5px;color:var(--muted)">—</td>
-                      <td><span class="badge b-tinggi"><span class="badge-dot"></span>Tinggi</span></td>
-                      <td><span class="badge b-menunggu"><span class="badge-dot"></span>Menunggu</span></td>
-                    </tr>
-                  </tbody>
+                  <tbody id="tbody"></tbody>
                 </table>
               </div>
-            </div>
-
-            <!-- ACTIVITY FEED -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3><i data-lucide="activity"
-                    style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Log
-                  Aktivitas Hari Ini</h3>
-              </div>
-              <div class="card-body" style="padding:8px 16px">
-                <div class="activity-item">
-                  <div class="act-dot" style="background:var(--success)"></div>
-                  <div style="flex:1">
-                    <div class="act-text"><strong style="color:var(--white)">Budi Wijaya</strong> menyelesaikan tiket
-                      <span class="mono" style="color:var(--cyan);font-size:11px">#MTC-2023</span>
-                    </div>
-                    <div class="act-time">09:42</div>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="act-dot" style="background:var(--blue3)"></div>
-                  <div style="flex:1">
-                    <div class="act-text"><strong style="color:var(--white)">Andi Susilo</strong> memperbarui status
-                      <span class="mono" style="color:var(--cyan);font-size:11px">#MTC-2022</span> → Proses
-                    </div>
-                    <div class="act-time">08:55</div>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="act-dot" style="background:var(--warning)"></div>
-                  <div style="flex:1">
-                    <div class="act-text">Permintaan baru masuk dari <strong style="color:var(--white)">Rudi
-                        Hartono</strong> — AC tidak dingin Lt.3</div>
-                    <div class="act-time">08:15</div>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="act-dot" style="background:var(--muted)"></div>
-                  <div style="flex:1">
-                    <div class="act-text"><strong style="color:var(--white)">Admin</strong> menugaskan <span
-                        class="mono" style="color:var(--cyan);font-size:11px">#MTC-2024</span> ke Budi Wijaya</div>
-                    <div class="act-time">07:30</div>
-                  </div>
+              <div
+                style="padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:11.5px;color:var(--muted)" id="tbl-count">— data</span>
+                <div style="display:flex;gap:4px">
+                  <button class="btn btn-outline btn-xs">‹ Prev</button>
+                  <button class="btn btn-primary btn-xs">1</button>
+                  <button class="btn btn-outline btn-xs">Next ›</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT COL -->
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <!-- KATEGORI CHART -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3>Distribusi Kategori</h3>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
-                    <span>Mekanikal (AC, Lift)</span><span class="mono" style="color:var(--cyan)">9</span>
-                  </div>
-                  <div class="bar-bg">
-                    <div class="bar-fill" style="width:75%;background:linear-gradient(90deg,var(--blue),var(--blue3))">
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
-                    <span>Elektrikal (Lampu, Panel)</span><span class="mono" style="color:#60a5fa">6</span>
-                  </div>
-                  <div class="bar-bg">
-                    <div class="bar-fill" style="width:50%;background:linear-gradient(90deg,#2563eb,#60a5fa)"></div>
-                  </div>
-                </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>Sipil
-                      (Dinding, Pipa)</span><span class="mono" style="color:#34d399">5</span></div>
-                  <div class="bar-bg">
-                    <div class="bar-fill" style="width:42%;background:linear-gradient(90deg,#059669,#34d399)"></div>
-                  </div>
-                </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>IT /
-                      AV</span><span class="mono" style="color:#c084fc">4</span></div>
-                  <div class="bar-bg">
-                    <div class="bar-fill" style="width:33%;background:linear-gradient(90deg,#7c3aed,#c084fc)"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- TEKNISI -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3>Status Teknisi</h3>
-              </div>
-              <div style="padding:8px 0">
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#2563eb,#60a5fa)">BW</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Budi Wijaya</div>
-                    <div style="font-size:10.5px;color:var(--muted)">3 tugas aktif</div>
-                  </div>
-                  <span class="badge b-proses" style="font-size:10px">Sibuk</span>
-                </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">AS</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Andi Susilo</div>
-                    <div style="font-size:10.5px;color:var(--muted)">2 tugas aktif</div>
-                  </div>
-                  <span class="badge b-proses" style="font-size:10px">Sibuk</span>
-                </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#7c3aed,#c084fc)">RN</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Rini Nuraeni</div>
-                    <div style="font-size:10.5px;color:var(--muted)">1 tugas aktif</div>
-                  </div>
-                  <span class="badge b-sedang" style="font-size:10px">Tersedia</span>
-                </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#374151,#6b7280)">DP</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Doni Prasetyo</div>
-                    <div style="font-size:10.5px;color:var(--muted)">0 tugas aktif</div>
-                  </div>
-                  <span class="badge b-selesai" style="font-size:10px">Bebas</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLA -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3>SLA Bulan Ini</h3>
-              </div>
-              <div class="card-body" style="text-align:center;padding:20px">
-                <div
-                  style="font-size:42px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--cyan);line-height:1">
-                  92%</div>
-                <div style="font-size:11px;color:var(--muted);margin-top:4px">Selesai tepat waktu</div>
-                <div style="margin-top:12px;height:6px;background:var(--surface2);border-radius:4px;overflow:hidden">
-                  <div
-                    style="width:92%;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:4px">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ PERMINTAAN (CRUD) ══ -->
-      <div class="section" id="sec-permintaan">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Permintaan Perbaikan</h2>
-            <p>Kelola semua tiket permintaan maintenance</p>
-          </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="file-spreadsheet"></i>
-              Export Excel</button>
-            <button onclick="openModal('modal-add')" class="btn btn-cyan btn-sm admin-only"
-              id="btn-tambah-permintaan"><i data-lucide="plus"></i> Tambah</button>
+          <!-- CARD VIEW -->
+          <div id="card-view" style="display:none">
+            <div class="cards-grid" id="cards-grid"></div>
+            <div style="margin-top:10px;font-size:11.5px;color:var(--muted)" id="card-count">— data</div>
           </div>
         </div>
 
-        <!-- TOOLBAR -->
-        <div class="toolbar">
-          <div class="search-box">
-            <i data-lucide="search"></i>
-            <input type="text" id="srch" placeholder="Cari tiket / kerusakan..." oninput="filterTable()">
-          </div>
-          <select class="filter-sel" id="f-sts" onchange="filterTable()">
-            <option value="">Semua Status</option>
-            <option>Menunggu</option>
-            <option>Proses</option>
-            <option>Selesai</option>
-            <option>Ditolak</option>
-          </select>
-          <select class="filter-sel" id="f-prio" onchange="filterTable()">
-            <option value="">Semua Prioritas</option>
-            <option>Tinggi</option>
-            <option>Sedang</option>
-            <option>Rendah</option>
-          </select>
-          <select class="filter-sel" id="f-kat" onchange="filterTable()">
-            <option value="">Semua Kategori</option>
-            <option>Mekanikal</option>
-            <option>Elektrikal</option>
-            <option>Sipil</option>
-            <option>IT / AV</option>
-          </select>
-          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
-            <div class="view-toggle">
-              <div class="view-btn active" id="vb-list" onclick="setView('list')" title="List View"><i
-                  data-lucide="list"></i></div>
-              <div class="view-btn" id="vb-card" onclick="setView('card')" title="Card View"><i
-                  data-lucide="layout-grid"></i></div>
+        <!-- ══ ARSIP ══ -->
+        <div class="section" id="sec-arsip">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Arsip Berkas Selesai</h2>
+              <p>Riwayat permintaan yang telah diselesaikan</p>
             </div>
+            <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="download"></i>
+              Export</button>
           </div>
-        </div>
-
-        <!-- LIST VIEW -->
-        <div id="list-view">
           <div class="card">
             <div style="overflow-x:auto">
-              <table id="tbl-main">
+              <table>
                 <thead>
                   <tr>
                     <th>Tiket</th>
-                    <th>Tgl</th>
+                    <th>Tgl Selesai</th>
                     <th>Pemohon</th>
                     <th>Kategori</th>
-                    <th>Deskripsi Kerusakan</th>
-                    <th>Lokasi</th>
-                    <th>Prio</th>
+                    <th>Deskripsi</th>
                     <th>Teknisi</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th>Durasi</th>
+                    <th>Keterangan Penyelesaian</th>
                   </tr>
                 </thead>
-                <tbody id="tbody"></tbody>
+                <tbody>
+                  <tr>
+                    <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2023</span></td>
+                    <td class="mono" style="font-size:11px">12 Jun 2025</td>
+                    <td>Dwi Lestari</td>
+                    <td><span class="chip">Elektrikal</span></td>
+                    <td>Lampu koridor padam</td>
+                    <td style="font-size:12px">Budi Wijaya</td>
+                    <td><span class="arsip-tag">4 jam</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">Ganti bohlam LED 18W</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2020</span></td>
+                    <td class="mono" style="font-size:11px">10 Jun 2025</td>
+                    <td>Hendra Gunawan</td>
+                    <td><span class="chip">IT / AV</span></td>
+                    <td>Proyektor tidak terhubung HDMI</td>
+                    <td style="font-size:12px">Andi Susilo</td>
+                    <td><span class="arsip-tag">2 jam</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">Ganti kabel + update driver</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2018</span></td>
+                    <td class="mono" style="font-size:11px">8 Jun 2025</td>
+                    <td>Yanti Permata</td>
+                    <td><span class="chip">Mekanikal</span></td>
+                    <td>AC tetes air berlebihan</td>
+                    <td style="font-size:12px">Rini Nuraeni</td>
+                    <td><span class="arsip-tag">6 jam</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">Pembersihan filter + drain pan</td>
+                  </tr>
+                  <tr>
+                    <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2015</span></td>
+                    <td class="mono" style="font-size:11px">5 Jun 2025</td>
+                    <td>Fajar Nugroho</td>
+                    <td><span class="chip">Sipil</span></td>
+                    <td>Plafon retak area gudang</td>
+                    <td style="font-size:12px">Budi Wijaya</td>
+                    <td><span class="arsip-tag"
+                        style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.3);color:#fbbf24">3
+                        hari</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">Perbaikan + cat ulang plafon</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-            <div
-              style="padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:11.5px;color:var(--muted)" id="tbl-count">— data</span>
-              <div style="display:flex;gap:4px">
-                <button class="btn btn-outline btn-xs">‹ Prev</button>
-                <button class="btn btn-primary btn-xs">1</button>
-                <button class="btn btn-outline btn-xs">Next ›</button>
-              </div>
+          </div>
+        </div>
+
+        <!-- ══ LAPORAN ══ -->
+        <div class="section" id="sec-laporan">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Laporan & Statistik</h2>
+              <p>Rekap performa tim maintenance</p>
             </div>
-          </div>
-        </div>
-
-        <!-- CARD VIEW -->
-        <div id="card-view" style="display:none">
-          <div class="cards-grid" id="cards-grid"></div>
-          <div style="margin-top:10px;font-size:11.5px;color:var(--muted)" id="card-count">— data</div>
-        </div>
-      </div>
-
-      <!-- ══ ARSIP ══ -->
-      <div class="section" id="sec-arsip">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Arsip Berkas Selesai</h2>
-            <p>Riwayat permintaan yang telah diselesaikan</p>
-          </div>
-          <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="download"></i>
-            Export</button>
-        </div>
-        <div class="card">
-          <div style="overflow-x:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>Tiket</th>
-                  <th>Tgl Selesai</th>
-                  <th>Pemohon</th>
-                  <th>Kategori</th>
-                  <th>Deskripsi</th>
-                  <th>Teknisi</th>
-                  <th>Durasi</th>
-                  <th>Keterangan Penyelesaian</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2023</span></td>
-                  <td class="mono" style="font-size:11px">12 Jun 2025</td>
-                  <td>Dwi Lestari</td>
-                  <td><span class="chip">Elektrikal</span></td>
-                  <td>Lampu koridor padam</td>
-                  <td style="font-size:12px">Budi Wijaya</td>
-                  <td><span class="arsip-tag">4 jam</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">Ganti bohlam LED 18W</td>
-                </tr>
-                <tr>
-                  <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2020</span></td>
-                  <td class="mono" style="font-size:11px">10 Jun 2025</td>
-                  <td>Hendra Gunawan</td>
-                  <td><span class="chip">IT / AV</span></td>
-                  <td>Proyektor tidak terhubung HDMI</td>
-                  <td style="font-size:12px">Andi Susilo</td>
-                  <td><span class="arsip-tag">2 jam</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">Ganti kabel + update driver</td>
-                </tr>
-                <tr>
-                  <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2018</span></td>
-                  <td class="mono" style="font-size:11px">8 Jun 2025</td>
-                  <td>Yanti Permata</td>
-                  <td><span class="chip">Mekanikal</span></td>
-                  <td>AC tetes air berlebihan</td>
-                  <td style="font-size:12px">Rini Nuraeni</td>
-                  <td><span class="arsip-tag">6 jam</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">Pembersihan filter + drain pan</td>
-                </tr>
-                <tr>
-                  <td><span class="mono" style="font-size:10px;color:var(--cyan)">#MTC-2015</span></td>
-                  <td class="mono" style="font-size:11px">5 Jun 2025</td>
-                  <td>Fajar Nugroho</td>
-                  <td><span class="chip">Sipil</span></td>
-                  <td>Plafon retak area gudang</td>
-                  <td style="font-size:12px">Budi Wijaya</td>
-                  <td><span class="arsip-tag"
-                      style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.3);color:#fbbf24">3
-                      hari</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">Perbaikan + cat ulang plafon</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ LAPORAN ══ -->
-      <div class="section" id="sec-laporan">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Laporan & Statistik</h2>
-            <p>Rekap performa tim maintenance</p>
-          </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="exportExcel()" class="btn btn-cyan btn-sm"><i data-lucide="file-spreadsheet"></i> Export
-              Excel</button>
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
-          <div class="card">
-            <div class="card-hdr">
-              <h3>Rekap Juni 2025</h3>
-            </div>
-            <div class="card-body" style="padding:0">
-              <div
-                style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
-                <span style="font-size:13px">Total Permintaan Masuk</span><span class="mono"
-                  style="color:var(--cyan);font-weight:700">24</span>
-              </div>
-              <div
-                style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
-                <span style="font-size:13px">Selesai Tepat Waktu</span><span class="mono"
-                  style="color:var(--success);font-weight:700">11</span>
-              </div>
-              <div
-                style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
-                <span style="font-size:13px">Selesai Melebihi Batas</span><span class="mono"
-                  style="color:var(--danger);font-weight:700">3</span>
-              </div>
-              <div
-                style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
-                <span style="font-size:13px">Rata-rata Waktu Penyelesaian</span><span class="mono"
-                  style="font-weight:700">8.4 jam</span>
-              </div>
-              <div style="display:flex;padding:12px 16px;justify-content:space-between"><span
-                  style="font-size:13px">Tingkat Kepuasan Pemohon</span><span class="mono"
-                  style="color:var(--success);font-weight:700">92%</span></div>
+            <div style="display:flex;gap:8px">
+              <button onclick="exportExcel()" class="btn btn-cyan btn-sm"><i data-lucide="file-spreadsheet"></i> Export
+                Excel</button>
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-hdr">
-              <h3>Performa Teknisi</h3>
-            </div>
-            <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
-                    style="font-weight:600;color:var(--white)">Budi Wijaya</span><span class="mono"
-                    style="color:var(--success)">7 selesai</span></div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:70%;background:linear-gradient(90deg,#059669,#34d399)"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
-                    style="font-weight:600;color:var(--white)">Andi Susilo</span><span class="mono"
-                    style="color:var(--blue3)">5 selesai</span></div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:50%;background:linear-gradient(90deg,var(--blue),var(--blue3))">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
-                    style="font-weight:600;color:var(--white)">Rini Nuraeni</span><span class="mono"
-                    style="color:#c084fc">2 selesai</span></div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:20%;background:linear-gradient(90deg,#7c3aed,#c084fc)"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
-                    style="font-weight:600;color:var(--white)">Doni Prasetyo</span><span class="mono"
-                    style="color:var(--muted)">0 selesai</span></div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:2%;background:var(--muted)"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hdr">
-            <h3>Export Laporan</h3>
-          </div>
-          <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-            <button onclick="exportExcel()" class="btn btn-outline" style="justify-content:center"><i
-                data-lucide="file-spreadsheet"></i> Export Excel</button>
-            <button class="btn btn-outline" style="justify-content:center"><i data-lucide="file-text"></i> Export
-              PDF</button>
-            <button class="btn btn-outline" style="justify-content:center"><i data-lucide="printer"></i>
-              Cetak</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ PENGGUNA ══ -->
-      <div class="section" id="sec-pengguna">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Manajemen Pengguna</h2>
-            <p>Kelola akun teknisi dan administrator</p>
-          </div>
-          <button onclick="openModal('modal-user')" class="btn btn-cyan btn-sm"><i data-lucide="user-plus"></i> Tambah
-            Pengguna</button>
-        </div>
-        <div class="card">
-          <div style="overflow-x:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>Pengguna</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Spesialisasi</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <div class="avatar sm">AD</div><span
-                        style="font-size:13px;font-weight:600;color:var(--white)">Admin User</span>
-                    </div>
-                  </td>
-                  <td class="mono" style="font-size:11px">admin</td>
-                  <td style="font-size:12px;color:var(--text2)">admin@company.com</td>
-                  <td><span class="badge b-proses" style="font-size:10px">Administrator</span></td>
-                  <td style="font-size:11.5px;color:var(--muted)">—</td>
-                  <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <div class="avatar sm" style="background:linear-gradient(135deg,#2563eb,#60a5fa)">BW</div><span
-                        style="font-size:13px;font-weight:600;color:var(--white)">Budi Wijaya</span>
-                    </div>
-                  </td>
-                  <td class="mono" style="font-size:11px">budi.w</td>
-                  <td style="font-size:12px;color:var(--text2)">budi@company.com</td>
-                  <td><span class="badge b-menunggu" style="font-size:10px">Teknisi</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">Mekanikal, Elektrikal</td>
-                  <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">AS</div><span
-                        style="font-size:13px;font-weight:600;color:var(--white)">Andi Susilo</span>
-                    </div>
-                  </td>
-                  <td class="mono" style="font-size:11px">andi.s</td>
-                  <td style="font-size:12px;color:var(--text2)">andi@company.com</td>
-                  <td><span class="badge b-menunggu" style="font-size:10px">Teknisi</span></td>
-                  <td style="font-size:11.5px;color:var(--text2)">IT/AV, Sipil</td>
-                  <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ PENGATURAN ══ -->
-      <div class="section" id="sec-kategori">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Pengaturan Sistem</h2>
-            <p>Konfigurasi kategori, SLA, dan notifikasi</p>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-          <div class="card">
-            <div class="card-hdr">
-              <h3>Kategori Kerusakan</h3>
-              <button onclick="openModal('modal-kat')" class="btn btn-cyan btn-xs"><i data-lucide="plus"></i>
-                Tambah</button>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nama</th>
-                  <th>Warna</th>
-                  <th>SLA</th>
-                  <th>Total</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600">Mekanikal</td>
-                  <td><span
-                      style="display:inline-block;width:14px;height:14px;border-radius:3px;background:var(--cyan);vertical-align:middle"></span>
-                  </td>
-                  <td class="mono" style="font-size:11px">24 jam</td>
-                  <td class="mono" style="font-size:11px;color:var(--cyan)">9</td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600">Elektrikal</td>
-                  <td><span
-                      style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#60a5fa;vertical-align:middle"></span>
-                  </td>
-                  <td class="mono" style="font-size:11px">8 jam</td>
-                  <td class="mono" style="font-size:11px;color:var(--cyan)">6</td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600">Sipil</td>
-                  <td><span
-                      style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#34d399;vertical-align:middle"></span>
-                  </td>
-                  <td class="mono" style="font-size:11px">72 jam</td>
-                  <td class="mono" style="font-size:11px;color:var(--cyan)">5</td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600">IT / AV</td>
-                  <td><span
-                      style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c084fc;vertical-align:middle"></span>
-                  </td>
-                  <td class="mono" style="font-size:11px">4 jam</td>
-                  <td class="mono" style="font-size:11px;color:var(--cyan)">4</td>
-                  <td>
-                    <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
-                          style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
-                          data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="card">
-            <div class="card-hdr">
-              <h3>Pengaturan Notifikasi</h3>
-            </div>
-            <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
-              <div
-                style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
-                <div>
-                  <div style="font-size:13px;font-weight:600;color:var(--white)">Email Notifikasi</div>
-                  <div style="font-size:11px;color:var(--muted)">Kirim email saat permintaan baru masuk</div>
-                </div>
-                <div class="toggle-wrap on" onclick="this.classList.toggle('on')"
-                  style="width:38px;height:20px;border-radius:10px;background:var(--blue);cursor:pointer;position:relative;transition:background .15s">
-                  <div
-                    style="position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
-                  </div>
-                </div>
-              </div>
-              <div
-                style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
-                <div>
-                  <div style="font-size:13px;font-weight:600;color:var(--white)">Deadline Reminder</div>
-                  <div style="font-size:11px;color:var(--muted)">Ingatkan H-1 sebelum batas waktu SLA</div>
-                </div>
-                <div class="toggle-wrap on" onclick="this.classList.toggle('on')"
-                  style="width:38px;height:20px;border-radius:10px;background:var(--blue);cursor:pointer;position:relative;transition:background .15s">
-                  <div
-                    style="position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
-                  </div>
-                </div>
-              </div>
-              <div
-                style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
-                <div>
-                  <div style="font-size:13px;font-weight:600;color:var(--white)">Laporan Mingguan</div>
-                  <div style="font-size:11px;color:var(--muted)">Otomatis kirim rekap setiap Senin</div>
-                </div>
-                <div class="toggle-wrap" onclick="this.classList.toggle('on')"
-                  style="width:38px;height:20px;border-radius:10px;background:var(--border2);cursor:pointer;position:relative;transition:background .15s">
-                  <div
-                    style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- ══ TUGAS SAYA (TEKNISI) ══ -->
-      <div class="section" id="sec-tugas-saya">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Tugas Saya</h2>
-            <p>Daftar pekerjaan yang ditugaskan kepada Anda</p>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div id="tek-profile-badge"
-              style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border2);padding:8px 14px;border-radius:10px">
-              <div class="avatar sm" style="background:linear-gradient(135deg,var(--blue),var(--cyan))"
-                id="tek-av-badge">TK</div>
-              <div>
-                <div style="font-size:12px;font-weight:700;color:var(--white)" id="tek-badge-name">Teknisi</div>
-                <div style="font-size:10px;color:var(--muted)">Status aktif bertugas</div>
-              </div>
-              <div class="ping" style="margin-left:4px"></div>
-            </div>
-            <button onclick="openInputTugas()" class="btn btn-cyan btn-sm" style="gap:7px">
-              <i data-lucide="plus-circle"></i> Input Tugas Baru
-            </button>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
-          <div class="stat-card c-warn">
-            <div class="stat-label">Menunggu</div>
-            <div class="stat-val" id="tek-stat-menunggu" style="color:#fbbf24">0</div>
-            <div class="stat-sub">Belum dimulai</div>
-            <div class="stat-icon"><i data-lucide="clock"></i></div>
-          </div>
-          <div class="stat-card c-cyan">
-            <div class="stat-label">Sedang Proses</div>
-            <div class="stat-val" id="tek-stat-proses" style="color:var(--cyan)">0</div>
-            <div class="stat-sub">Aktif dikerjakan</div>
-            <div class="stat-icon"><i data-lucide="settings-2"></i></div>
-          </div>
-          <div class="stat-card c-green">
-            <div class="stat-label">Selesai Bulan Ini</div>
-            <div class="stat-val" id="tek-stat-selesai" style="color:#34d399">0</div>
-            <div class="stat-sub">Tugas diselesaikan</div>
-            <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
-          </div>
-        </div>
-        <div class="toolbar" style="margin-bottom:14px">
-          <select class="filter-sel" id="tek-filter-status" onchange="renderTugasSaya()">
-            <option value="">Semua Status</option>
-            <option>Menunggu</option>
-            <option>Proses</option>
-            <option>Selesai</option>
-          </select>
-          <select class="filter-sel" id="tek-filter-prio" onchange="renderTugasSaya()">
-            <option value="">Semua Prioritas</option>
-            <option>Tinggi</option>
-            <option>Sedang</option>
-            <option>Rendah</option>
-          </select>
-        </div>
-        <div id="tek-tugas-grid"
-          style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px"></div>
-        <div id="tek-tugas-empty" style="display:none;text-align:center;padding:48px;color:var(--muted)">
-          <i data-lucide="check-circle-2" style="width:40px;height:40px;margin-bottom:10px;color:var(--success)"></i>
-          <div style="font-size:14px;font-weight:600">Tidak ada tugas aktif</div>
-          <div style="font-size:12px;margin-top:4px">Semua pekerjaan sudah selesai!</div>
-        </div>
-      </div>
-
-      <!-- ══ DASHBOARD MANAJER ══ -->
-      <div class="section" id="sec-dashboard-manajer">
-        <div class="page-hdr">
-          <div class="page-hdr-left">
-            <h2>Executive Dashboard</h2>
-            <p>Ringkasan kinerja tim maintenance bulan ini</p>
-          </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="file-spreadsheet"></i>
-              Export Laporan</button>
-            <button onclick="showSec('laporan')" class="btn btn-cyan btn-sm"><i data-lucide="bar-chart-3"></i> Lihat
-              Detail</button>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
-          <div class="kpi-card kpi-blue">
-            <div class="kpi-label">Total Permintaan</div>
-            <div class="kpi-num" style="color:var(--blue3)" id="mgr-total">0</div>
-            <div class="kpi-trend up">Bulan ini</div>
-          </div>
-          <div class="kpi-card kpi-green">
-            <div class="kpi-label">Tingkat Selesai</div>
-            <div class="kpi-num" style="color:var(--success)" id="mgr-rate">0%</div>
-            <div class="kpi-trend up">vs bulan lalu</div>
-          </div>
-          <div class="kpi-card kpi-warn">
-            <div class="kpi-label">SLA Compliance</div>
-            <div class="kpi-num" style="color:#fbbf24">92%</div>
-            <div class="kpi-trend down">Target: 95%</div>
-          </div>
-          <div class="kpi-card kpi-red">
-            <div class="kpi-label">Ditolak</div>
-            <div class="kpi-num" style="color:var(--danger)" id="mgr-ditolak">0</div>
-            <div class="kpi-trend">Tiket ditolak</div>
-          </div>
-        </div>
-        <div class="dash-grid">
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <!-- APPROVAL PANEL -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
             <div class="card">
               <div class="card-hdr">
-                <h3><i data-lucide="shield-check"
-                    style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--warning)"></i>Menunggu
-                  Persetujuan Manajer</h3>
-                <span id="mgr-pending-badge" class="nav-badge red" style="font-size:10px">0</span>
+                <h3>Rekap Juni 2025</h3>
               </div>
-              <div id="mgr-approval-list" style="padding:4px 0"></div>
-            </div>
-            <!-- REKAPITULASI TABLE -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3><i data-lucide="table-2"
-                    style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Rekapitulasi
-                  Per Kategori</h3>
-              </div>
-              <div style="overflow-x:auto">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Kategori</th>
-                      <th>Total</th>
-                      <th>Proses</th>
-                      <th>Selesai</th>
-                      <th>Compliance</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="font-weight:600">Mekanikal</td>
-                      <td class="mono" style="color:var(--cyan)">9</td>
-                      <td><span class="badge b-proses" style="font-size:10px">3</span></td>
-                      <td><span class="badge b-selesai" style="font-size:10px">5</span></td>
-                      <td>
-                        <div style="display:flex;align-items:center;gap:8px">
-                          <div class="bar-bg" style="flex:1">
-                            <div class="bar-fill"
-                              style="width:88%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
-                          </div><span class="mono" style="font-size:10px;color:var(--success)">88%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight:600">Elektrikal</td>
-                      <td class="mono" style="color:var(--cyan)">6</td>
-                      <td><span class="badge b-proses" style="font-size:10px">2</span></td>
-                      <td><span class="badge b-selesai" style="font-size:10px">3</span></td>
-                      <td>
-                        <div style="display:flex;align-items:center;gap:8px">
-                          <div class="bar-bg" style="flex:1">
-                            <div class="bar-fill"
-                              style="width:95%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
-                          </div><span class="mono" style="font-size:10px;color:var(--success)">95%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight:600">Sipil</td>
-                      <td class="mono" style="color:var(--cyan)">5</td>
-                      <td><span class="badge b-proses" style="font-size:10px">1</span></td>
-                      <td><span class="badge b-selesai" style="font-size:10px">3</span></td>
-                      <td>
-                        <div style="display:flex;align-items:center;gap:8px">
-                          <div class="bar-bg" style="flex:1">
-                            <div class="bar-fill"
-                              style="width:75%;background:linear-gradient(90deg,var(--warning),#f97316)"></div>
-                          </div><span class="mono" style="font-size:10px;color:var(--warning)">75%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight:600">IT / AV</td>
-                      <td class="mono" style="color:var(--cyan)">4</td>
-                      <td><span class="badge b-proses" style="font-size:10px">2</span></td>
-                      <td><span class="badge b-selesai" style="font-size:10px">2</span></td>
-                      <td>
-                        <div style="display:flex;align-items:center;gap:8px">
-                          <div class="bar-bg" style="flex:1">
-                            <div class="bar-fill"
-                              style="width:100%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
-                          </div><span class="mono" style="font-size:10px;color:var(--success)">100%</span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card-body" style="padding:0">
+                <div
+                  style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
+                  <span style="font-size:13px">Total Permintaan Masuk</span><span class="mono"
+                    style="color:var(--cyan);font-weight:700">24</span></div>
+                <div
+                  style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
+                  <span style="font-size:13px">Selesai Tepat Waktu</span><span class="mono"
+                    style="color:var(--success);font-weight:700">11</span></div>
+                <div
+                  style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
+                  <span style="font-size:13px">Selesai Melebihi Batas</span><span class="mono"
+                    style="color:var(--danger);font-weight:700">3</span></div>
+                <div
+                  style="display:flex;padding:12px 16px;border-bottom:1px solid var(--border);justify-content:space-between">
+                  <span style="font-size:13px">Rata-rata Waktu Penyelesaian</span><span class="mono"
+                    style="font-weight:700">8.4 jam</span></div>
+                <div style="display:flex;padding:12px 16px;justify-content:space-between"><span
+                    style="font-size:13px">Tingkat Kepuasan Pemohon</span><span class="mono"
+                    style="color:var(--success);font-weight:700">92%</span></div>
               </div>
             </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <!-- PERFORMA TEKNISI -->
+
             <div class="card">
               <div class="card-hdr">
                 <h3>Performa Teknisi</h3>
               </div>
-              <div style="padding:8px 0">
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">BW</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Budi Wijaya</div>
-                    <div style="margin-top:4px">
-                      <div class="bar-bg">
-                        <div class="bar-fill" style="width:70%;background:linear-gradient(90deg,#059669,#34d399)">
-                        </div>
-                      </div>
-                    </div>
-                  </div><span
-                    style="font-size:11px;font-weight:700;color:var(--success);font-family:'JetBrains Mono',monospace">7
-                    ✓</span>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
+                      style="font-weight:600;color:var(--white)">Budi Wijaya</span><span class="mono"
+                      style="color:var(--success)">7 selesai</span></div>
+                  <div class="bar-bg">
+                    <div class="bar-fill" style="width:70%;background:linear-gradient(90deg,#059669,#34d399)"></div>
+                  </div>
                 </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,var(--blue),var(--blue3))">AS</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Andi Susilo</div>
-                    <div style="margin-top:4px">
-                      <div class="bar-bg">
-                        <div class="bar-fill"
-                          style="width:50%;background:linear-gradient(90deg,var(--blue),var(--blue3))"></div>
-                      </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
+                      style="font-weight:600;color:var(--white)">Andi Susilo</span><span class="mono"
+                      style="color:var(--blue3)">5 selesai</span></div>
+                  <div class="bar-bg">
+                    <div class="bar-fill" style="width:50%;background:linear-gradient(90deg,var(--blue),var(--blue3))">
                     </div>
-                  </div><span
-                    style="font-size:11px;font-weight:700;color:var(--blue3);font-family:'JetBrains Mono',monospace">5
-                    ✓</span>
+                  </div>
                 </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#7c3aed,#c084fc)">RN</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Rini Nuraeni</div>
-                    <div style="margin-top:4px">
-                      <div class="bar-bg">
-                        <div class="bar-fill" style="width:20%;background:linear-gradient(90deg,#7c3aed,#c084fc)">
-                        </div>
-                      </div>
-                    </div>
-                  </div><span
-                    style="font-size:11px;font-weight:700;color:#c084fc;font-family:'JetBrains Mono',monospace">2
-                    ✓</span>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
+                      style="font-weight:600;color:var(--white)">Rini Nuraeni</span><span class="mono"
+                      style="color:#c084fc">2 selesai</span></div>
+                  <div class="bar-bg">
+                    <div class="bar-fill" style="width:20%;background:linear-gradient(90deg,#7c3aed,#c084fc)"></div>
+                  </div>
                 </div>
-                <div class="user-row">
-                  <div class="avatar sm" style="background:linear-gradient(135deg,#374151,#6b7280)">DP</div>
-                  <div style="flex:1;min-width:0">
-                    <div style="font-size:12.5px;font-weight:700;color:var(--white)">Doni Prasetyo</div>
-                    <div style="margin-top:4px">
-                      <div class="bar-bg">
-                        <div class="bar-fill" style="width:2%;background:var(--muted)"></div>
-                      </div>
-                    </div>
-                  </div><span
-                    style="font-size:11px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace">0
-                    ✓</span>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span
+                      style="font-weight:600;color:var(--white)">Doni Prasetyo</span><span class="mono"
+                      style="color:var(--muted)">0 selesai</span></div>
+                  <div class="bar-bg">
+                    <div class="bar-fill" style="width:2%;background:var(--muted)"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- DISTRIBUSI PRIORITAS -->
+          </div>
+
+          <div class="card">
+            <div class="card-hdr">
+              <h3>Export Laporan</h3>
+            </div>
+            <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+              <button onclick="exportExcel()" class="btn btn-outline" style="justify-content:center"><i
+                  data-lucide="file-spreadsheet"></i> Export Excel</button>
+              <button class="btn btn-outline" style="justify-content:center"><i data-lucide="file-text"></i> Export
+                PDF</button>
+              <button class="btn btn-outline" style="justify-content:center"><i data-lucide="printer"></i>
+                Cetak</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ PENGGUNA ══ -->
+        <div class="section" id="sec-pengguna">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Manajemen Pengguna</h2>
+              <p>Kelola akun teknisi dan administrator</p>
+            </div>
+            <button onclick="openModal('modal-user')" class="btn btn-cyan btn-sm"><i data-lucide="user-plus"></i> Tambah
+              Pengguna</button>
+          </div>
+          <div class="card">
+            <div style="overflow-x:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Pengguna</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Spesialisasi</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar sm">AD</div><span
+                          style="font-size:13px;font-weight:600;color:var(--white)">Admin User</span>
+                      </div>
+                    </td>
+                    <td class="mono" style="font-size:11px">admin</td>
+                    <td style="font-size:12px;color:var(--text2)">admin@company.com</td>
+                    <td><span class="badge b-proses" style="font-size:10px">Administrator</span></td>
+                    <td style="font-size:11.5px;color:var(--muted)">—</td>
+                    <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar sm" style="background:linear-gradient(135deg,#2563eb,#60a5fa)">BW</div><span
+                          style="font-size:13px;font-weight:600;color:var(--white)">Budi Wijaya</span>
+                      </div>
+                    </td>
+                    <td class="mono" style="font-size:11px">budi.w</td>
+                    <td style="font-size:12px;color:var(--text2)">budi@company.com</td>
+                    <td><span class="badge b-menunggu" style="font-size:10px">Teknisi</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">Mekanikal, Elektrikal</td>
+                    <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">AS</div><span
+                          style="font-size:13px;font-weight:600;color:var(--white)">Andi Susilo</span>
+                      </div>
+                    </td>
+                    <td class="mono" style="font-size:11px">andi.s</td>
+                    <td style="font-size:12px;color:var(--text2)">andi@company.com</td>
+                    <td><span class="badge b-menunggu" style="font-size:10px">Teknisi</span></td>
+                    <td style="font-size:11.5px;color:var(--text2)">IT/AV, Sipil</td>
+                    <td><span class="badge b-selesai" style="font-size:10px">Aktif</span></td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ PENGATURAN ══ -->
+        <div class="section" id="sec-kategori">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Pengaturan Sistem</h2>
+              <p>Konfigurasi kategori, SLA, dan notifikasi</p>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
             <div class="card">
               <div class="card-hdr">
-                <h3>Distribusi Prioritas (Aktif)</h3>
+                <h3>Kategori Kerusakan</h3>
+                <button onclick="openModal('modal-kat')" class="btn btn-cyan btn-xs"><i data-lucide="plus"></i>
+                  Tambah</button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Warna</th>
+                    <th>SLA</th>
+                    <th>Total</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight:600">Mekanikal</td>
+                    <td><span
+                        style="display:inline-block;width:14px;height:14px;border-radius:3px;background:var(--cyan);vertical-align:middle"></span>
+                    </td>
+                    <td class="mono" style="font-size:11px">24 jam</td>
+                    <td class="mono" style="font-size:11px;color:var(--cyan)">9</td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600">Elektrikal</td>
+                    <td><span
+                        style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#60a5fa;vertical-align:middle"></span>
+                    </td>
+                    <td class="mono" style="font-size:11px">8 jam</td>
+                    <td class="mono" style="font-size:11px;color:var(--cyan)">6</td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600">Sipil</td>
+                    <td><span
+                        style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#34d399;vertical-align:middle"></span>
+                    </td>
+                    <td class="mono" style="font-size:11px">72 jam</td>
+                    <td class="mono" style="font-size:11px;color:var(--cyan)">5</td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600">IT / AV</td>
+                    <td><span
+                        style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c084fc;vertical-align:middle"></span>
+                    </td>
+                    <td class="mono" style="font-size:11px">4 jam</td>
+                    <td class="mono" style="font-size:11px;color:var(--cyan)">4</td>
+                    <td>
+                      <div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs"><i data-lucide="edit-2"
+                            style="width:11px;height:11px"></i></button><button class="btn btn-danger btn-xs"><i
+                            data-lucide="trash-2" style="width:11px;height:11px"></i></button></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <div class="card-hdr">
+                <h3>Pengaturan Notifikasi</h3>
               </div>
               <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
-                <div style="display:flex;align-items:center;gap:10px"><span
-                    style="font-size:12px;color:var(--danger);font-weight:700;width:50px">Tinggi</span>
-                  <div class="bar-bg" style="flex:1">
-                    <div class="bar-fill" id="mgr-bar-tinggi"
-                      style="width:0%;background:linear-gradient(90deg,var(--danger),#f43f5e)"></div>
-                  </div><span class="mono" style="font-size:11px;color:var(--danger)" id="mgr-cnt-tinggi">0</span>
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--white)">Email Notifikasi</div>
+                    <div style="font-size:11px;color:var(--muted)">Kirim email saat permintaan baru masuk</div>
+                  </div>
+                  <div class="toggle-wrap on" onclick="this.classList.toggle('on')"
+                    style="width:38px;height:20px;border-radius:10px;background:var(--blue);cursor:pointer;position:relative;transition:background .15s">
+                    <div
+                      style="position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
+                    </div>
+                  </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px"><span
-                    style="font-size:12px;color:var(--warning);font-weight:700;width:50px">Sedang</span>
-                  <div class="bar-bg" style="flex:1">
-                    <div class="bar-fill" id="mgr-bar-sedang"
-                      style="width:0%;background:linear-gradient(90deg,var(--warning),#f97316)"></div>
-                  </div><span class="mono" style="font-size:11px;color:var(--warning)" id="mgr-cnt-sedang">0</span>
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--white)">Deadline Reminder</div>
+                    <div style="font-size:11px;color:var(--muted)">Ingatkan H-1 sebelum batas waktu SLA</div>
+                  </div>
+                  <div class="toggle-wrap on" onclick="this.classList.toggle('on')"
+                    style="width:38px;height:20px;border-radius:10px;background:var(--blue);cursor:pointer;position:relative;transition:background .15s">
+                    <div
+                      style="position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
+                    </div>
+                  </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px"><span
-                    style="font-size:12px;color:var(--success);font-weight:700;width:50px">Rendah</span>
-                  <div class="bar-bg" style="flex:1">
-                    <div class="bar-fill" id="mgr-bar-rendah"
-                      style="width:0%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
-                  </div><span class="mono" style="font-size:11px;color:var(--success)" id="mgr-cnt-rendah">0</span>
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;background:var(--surface2);padding:12px;border-radius:8px;border:1px solid var(--border)">
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--white)">Laporan Mingguan</div>
+                    <div style="font-size:11px;color:var(--muted)">Otomatis kirim rekap setiap Senin</div>
+                  </div>
+                  <div class="toggle-wrap" onclick="this.classList.toggle('on')"
+                    style="width:38px;height:20px;border-radius:10px;background:var(--border2);cursor:pointer;position:relative;transition:background .15s">
+                    <div
+                      style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:white;transition:all .15s">
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <!-- MEMO MANAJER -->
-            <div class="card">
-              <div class="card-hdr">
-                <h3>Catatan / Memo Manajer</h3>
-              </div>
-              <div class="card-body">
-                <textarea id="mgr-memo" rows="4" placeholder="Tulis catatan atau arahan untuk tim..."
-                  style="width:100%;background:var(--surface2)"></textarea>
-                <button onclick="toast('Memo disimpan','ok')" class="btn btn-cyan btn-sm" style="margin-top:8px"><i
-                    data-lucide="save"></i> Simpan Memo</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div><!-- /content-area -->
-  </div><!-- /right-panel -->
+
+        <!-- ══ TUGAS SAYA (TEKNISI) ══ -->
+        <div class="section" id="sec-tugas-saya">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Tugas Saya</h2>
+              <p>Daftar pekerjaan yang ditugaskan kepada Anda</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div id="tek-profile-badge"
+                style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border2);padding:8px 14px;border-radius:10px">
+                <div class="avatar sm" style="background:linear-gradient(135deg,var(--blue),var(--cyan))"
+                  id="tek-av-badge">TK</div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--white)" id="tek-badge-name">Teknisi</div>
+                  <div style="font-size:10px;color:var(--muted)">Status aktif bertugas</div>
+                </div>
+                <div class="ping" style="margin-left:4px"></div>
+              </div>
+              <button onclick="openInputTugas()" class="btn btn-cyan btn-sm" style="gap:7px">
+                <i data-lucide="plus-circle"></i> Input Tugas Baru
+              </button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+            <div class="stat-card c-warn">
+              <div class="stat-label">Menunggu</div>
+              <div class="stat-val" id="tek-stat-menunggu" style="color:#fbbf24">0</div>
+              <div class="stat-sub">Belum dimulai</div>
+              <div class="stat-icon"><i data-lucide="clock"></i></div>
+            </div>
+            <div class="stat-card c-cyan">
+              <div class="stat-label">Sedang Proses</div>
+              <div class="stat-val" id="tek-stat-proses" style="color:var(--cyan)">0</div>
+              <div class="stat-sub">Aktif dikerjakan</div>
+              <div class="stat-icon"><i data-lucide="settings-2"></i></div>
+            </div>
+            <div class="stat-card c-green">
+              <div class="stat-label">Selesai Bulan Ini</div>
+              <div class="stat-val" id="tek-stat-selesai" style="color:#34d399">0</div>
+              <div class="stat-sub">Tugas diselesaikan</div>
+              <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
+            </div>
+          </div>
+          <div class="toolbar" style="margin-bottom:14px">
+            <select class="filter-sel" id="tek-filter-status" onchange="renderTugasSaya()">
+              <option value="">Semua Status</option>
+              <option>Menunggu</option>
+              <option>Proses</option>
+              <option>Selesai</option>
+            </select>
+            <select class="filter-sel" id="tek-filter-prio" onchange="renderTugasSaya()">
+              <option value="">Semua Prioritas</option>
+              <option>Tinggi</option>
+              <option>Sedang</option>
+              <option>Rendah</option>
+            </select>
+          </div>
+          <div id="tek-tugas-grid"
+            style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px"></div>
+          <div id="tek-tugas-empty" style="display:none;text-align:center;padding:48px;color:var(--muted)">
+            <i data-lucide="check-circle-2" style="width:40px;height:40px;margin-bottom:10px;color:var(--success)"></i>
+            <div style="font-size:14px;font-weight:600">Tidak ada tugas aktif</div>
+            <div style="font-size:12px;margin-top:4px">Semua pekerjaan sudah selesai!</div>
+          </div>
+        </div>
+
+        <!-- ══ DASHBOARD MANAJER ══ -->
+        <div class="section" id="sec-dashboard-manajer">
+          <div class="page-hdr">
+            <div class="page-hdr-left">
+              <h2>Executive Dashboard</h2>
+              <p>Ringkasan kinerja tim maintenance bulan ini</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button onclick="exportExcel()" class="btn btn-outline btn-sm"><i data-lucide="file-spreadsheet"></i>
+                Export Laporan</button>
+              <button onclick="showSec('laporan')" class="btn btn-cyan btn-sm"><i data-lucide="bar-chart-3"></i> Lihat
+                Detail</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+            <div class="kpi-card kpi-blue">
+              <div class="kpi-label">Total Permintaan</div>
+              <div class="kpi-num" style="color:var(--blue3)" id="mgr-total">0</div>
+              <div class="kpi-trend up">Bulan ini</div>
+            </div>
+            <div class="kpi-card kpi-green">
+              <div class="kpi-label">Tingkat Selesai</div>
+              <div class="kpi-num" style="color:var(--success)" id="mgr-rate">0%</div>
+              <div class="kpi-trend up">vs bulan lalu</div>
+            </div>
+            <div class="kpi-card kpi-warn">
+              <div class="kpi-label">SLA Compliance</div>
+              <div class="kpi-num" style="color:#fbbf24">92%</div>
+              <div class="kpi-trend down">Target: 95%</div>
+            </div>
+            <div class="kpi-card kpi-red">
+              <div class="kpi-label">Ditolak</div>
+              <div class="kpi-num" style="color:var(--danger)" id="mgr-ditolak">0</div>
+              <div class="kpi-trend">Tiket ditolak</div>
+            </div>
+          </div>
+          <div class="dash-grid">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <!-- APPROVAL PANEL -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3><i data-lucide="shield-check"
+                      style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--warning)"></i>Menunggu
+                    Persetujuan Manajer</h3>
+                  <span id="mgr-pending-badge" class="nav-badge red" style="font-size:10px">0</span>
+                </div>
+                <div id="mgr-approval-list" style="padding:4px 0"></div>
+              </div>
+              <!-- REKAPITULASI TABLE -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3><i data-lucide="table-2"
+                      style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:5px;color:var(--cyan)"></i>Rekapitulasi
+                    Per Kategori</h3>
+                </div>
+                <div style="overflow-x:auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Kategori</th>
+                        <th>Total</th>
+                        <th>Proses</th>
+                        <th>Selesai</th>
+                        <th>Compliance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="font-weight:600">Mekanikal</td>
+                        <td class="mono" style="color:var(--cyan)">9</td>
+                        <td><span class="badge b-proses" style="font-size:10px">3</span></td>
+                        <td><span class="badge b-selesai" style="font-size:10px">5</span></td>
+                        <td>
+                          <div style="display:flex;align-items:center;gap:8px">
+                            <div class="bar-bg" style="flex:1">
+                              <div class="bar-fill"
+                                style="width:88%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
+                            </div><span class="mono" style="font-size:10px;color:var(--success)">88%</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight:600">Elektrikal</td>
+                        <td class="mono" style="color:var(--cyan)">6</td>
+                        <td><span class="badge b-proses" style="font-size:10px">2</span></td>
+                        <td><span class="badge b-selesai" style="font-size:10px">3</span></td>
+                        <td>
+                          <div style="display:flex;align-items:center;gap:8px">
+                            <div class="bar-bg" style="flex:1">
+                              <div class="bar-fill"
+                                style="width:95%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
+                            </div><span class="mono" style="font-size:10px;color:var(--success)">95%</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight:600">Sipil</td>
+                        <td class="mono" style="color:var(--cyan)">5</td>
+                        <td><span class="badge b-proses" style="font-size:10px">1</span></td>
+                        <td><span class="badge b-selesai" style="font-size:10px">3</span></td>
+                        <td>
+                          <div style="display:flex;align-items:center;gap:8px">
+                            <div class="bar-bg" style="flex:1">
+                              <div class="bar-fill"
+                                style="width:75%;background:linear-gradient(90deg,var(--warning),#f97316)"></div>
+                            </div><span class="mono" style="font-size:10px;color:var(--warning)">75%</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight:600">IT / AV</td>
+                        <td class="mono" style="color:var(--cyan)">4</td>
+                        <td><span class="badge b-proses" style="font-size:10px">2</span></td>
+                        <td><span class="badge b-selesai" style="font-size:10px">2</span></td>
+                        <td>
+                          <div style="display:flex;align-items:center;gap:8px">
+                            <div class="bar-bg" style="flex:1">
+                              <div class="bar-fill"
+                                style="width:100%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
+                            </div><span class="mono" style="font-size:10px;color:var(--success)">100%</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <!-- PERFORMA TEKNISI -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>Performa Teknisi</h3>
+                </div>
+                <div style="padding:8px 0">
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#059669,#34d399)">BW</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Budi Wijaya</div>
+                      <div style="margin-top:4px">
+                        <div class="bar-bg">
+                          <div class="bar-fill" style="width:70%;background:linear-gradient(90deg,#059669,#34d399)">
+                          </div>
+                        </div>
+                      </div>
+                    </div><span
+                      style="font-size:11px;font-weight:700;color:var(--success);font-family:'JetBrains Mono',monospace">7
+                      ✓</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,var(--blue),var(--blue3))">AS</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Andi Susilo</div>
+                      <div style="margin-top:4px">
+                        <div class="bar-bg">
+                          <div class="bar-fill"
+                            style="width:50%;background:linear-gradient(90deg,var(--blue),var(--blue3))"></div>
+                        </div>
+                      </div>
+                    </div><span
+                      style="font-size:11px;font-weight:700;color:var(--blue3);font-family:'JetBrains Mono',monospace">5
+                      ✓</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#7c3aed,#c084fc)">RN</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Rini Nuraeni</div>
+                      <div style="margin-top:4px">
+                        <div class="bar-bg">
+                          <div class="bar-fill" style="width:20%;background:linear-gradient(90deg,#7c3aed,#c084fc)">
+                          </div>
+                        </div>
+                      </div>
+                    </div><span
+                      style="font-size:11px;font-weight:700;color:#c084fc;font-family:'JetBrains Mono',monospace">2
+                      ✓</span>
+                  </div>
+                  <div class="user-row">
+                    <div class="avatar sm" style="background:linear-gradient(135deg,#374151,#6b7280)">DP</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:700;color:var(--white)">Doni Prasetyo</div>
+                      <div style="margin-top:4px">
+                        <div class="bar-bg">
+                          <div class="bar-fill" style="width:2%;background:var(--muted)"></div>
+                        </div>
+                      </div>
+                    </div><span
+                      style="font-size:11px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace">0
+                      ✓</span>
+                  </div>
+                </div>
+              </div>
+              <!-- DISTRIBUSI PRIORITAS -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>Distribusi Prioritas (Aktif)</h3>
+                </div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+                  <div style="display:flex;align-items:center;gap:10px"><span
+                      style="font-size:12px;color:var(--danger);font-weight:700;width:50px">Tinggi</span>
+                    <div class="bar-bg" style="flex:1">
+                      <div class="bar-fill" id="mgr-bar-tinggi"
+                        style="width:0%;background:linear-gradient(90deg,var(--danger),#f43f5e)"></div>
+                    </div><span class="mono" style="font-size:11px;color:var(--danger)" id="mgr-cnt-tinggi">0</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px"><span
+                      style="font-size:12px;color:var(--warning);font-weight:700;width:50px">Sedang</span>
+                    <div class="bar-bg" style="flex:1">
+                      <div class="bar-fill" id="mgr-bar-sedang"
+                        style="width:0%;background:linear-gradient(90deg,var(--warning),#f97316)"></div>
+                    </div><span class="mono" style="font-size:11px;color:var(--warning)" id="mgr-cnt-sedang">0</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px"><span
+                      style="font-size:12px;color:var(--success);font-weight:700;width:50px">Rendah</span>
+                    <div class="bar-bg" style="flex:1">
+                      <div class="bar-fill" id="mgr-bar-rendah"
+                        style="width:0%;background:linear-gradient(90deg,var(--success),#10b981)"></div>
+                    </div><span class="mono" style="font-size:11px;color:var(--success)" id="mgr-cnt-rendah">0</span>
+                  </div>
+                </div>
+              </div>
+              <!-- MEMO MANAJER -->
+              <div class="card">
+                <div class="card-hdr">
+                  <h3>Catatan / Memo Manajer</h3>
+                </div>
+                <div class="card-body">
+                  <textarea id="mgr-memo" rows="4" placeholder="Tulis catatan atau arahan untuk tim..."
+                    style="width:100%;background:var(--surface2)"></textarea>
+                  <button onclick="toast('Memo disimpan','ok')" class="btn btn-cyan btn-sm" style="margin-top:8px"><i
+                      data-lucide="save"></i> Simpan Memo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content-area -->
+    </div><!-- /right-panel -->
   </div><!-- /page-app -->
 
   <!-- ══════════════════════════════ MODALS -->
